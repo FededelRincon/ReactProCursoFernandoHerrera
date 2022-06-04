@@ -24,3 +24,15 @@ export interface ProductCardHOCProps {
     Image:   ( Props: ProductImageProps )   => JSX.Element;
     Title:   ( Props: ProductTitleProps )   => JSX.Element;
 }
+
+
+export interface onChangeArgs {
+    product:Product;
+    count:number;
+}
+
+
+export interface ProductInCart extends Product {
+    // osea tiene todas las propiedades del Product normal, y se le agrega una nueva q es el count
+    count: number;
+}
