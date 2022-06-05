@@ -12,31 +12,16 @@ export const useShoppingCart = () => {
 
         setShoppingCart( oldShoppingCart => {
 
-            const productInCart: ProductInCart = oldShoppingCart[product.id] || { ...product, count: 0 };
+            if ( count === 0 ) {
+                const { [product.id]:toDelete, ...rest } = oldShoppingCart; //al llegar a cero quiero quitar ese elemento del carrito, => separo lo q quiero borrar y el rest, y return del resto
 
-            if( Math.max( productInCart.count + count , 0) > 0 ) {
-                productInCart.count += count;
-                return {
-                    ...oldShoppingCart,
-                    [product.id]: productInCart
-                }
+                return rest
+            } 
+
+            return {
+                ...oldShoppingCart,
+                [ product.id ]: { ...product, count }
             }
-
-            
-            // borrar el producto
-            const { [product.id]:toDelete, ...rest } = oldShoppingCart; 
-            return { ...rest };
-
-            // if ( count === 0 ) {
-            //     const { [product.id]:toDelete, ...rest } = oldShoppingCart; //al llegar a cero quiero quitar ese elemento del carrito, => separo lo q quiero borrar y el rest, y return del resto
-
-            //     return rest
-            // } 
-
-            // return {
-            //     ...oldShoppingCart,
-            //     [ product.id ]: { ...product, count }
-            // }
         })
     }
 
